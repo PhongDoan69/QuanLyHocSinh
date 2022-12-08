@@ -12,11 +12,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
 </head>
 <body>
 <h1 class="subject">QUẢN LÝ HỌC SINH</h1>
 <ul>
+    <li><a href="{{ url_for('student_list') }}"> Tất cả học sinh </a></li>
     {% for g in grades %}
     <li><a href="#"> {{g.grade}} </a></li>
     {% endfor %}

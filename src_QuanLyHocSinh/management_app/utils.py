@@ -8,5 +8,5 @@ def read_json(path):
 def load_grades():
     return read_json(os.path.join(app.root_path, 'data/grades.json'))
 
-def load_studens():
+def load_students():
     return read_json(os.path.join(app.root_path, 'data/students.json'))
