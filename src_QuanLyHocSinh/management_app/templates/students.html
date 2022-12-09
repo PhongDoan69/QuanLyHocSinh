@@ -15,38 +15,37 @@
 </head>
 <body>
 <h1 class="subject">DANH SÁCH HỌC SINH</h1>
-<table>
-    <tr>
-        <th></th>
-        <th>Họ và tên</th>
-        <th>Lớp</th>
-        <th>Giới tính</th>
-        <th>Năm sinh</th>
-        <th>Địa chỉ</th>
-        <th>Số điện thoại</th>
-        <th>Điểm trung bình</th>
-        <th>Điểm 15 phút</th>
-
-    </tr>
-    {% for s in students %}
-    <tr>
-        <td></td>
-        <td>{{ s.name }}</td>
-        <td>{{ s.class }}</td>
-        <td>{{ s.sex }}</td>
-        <td>{{ s.dob }}</td>
-        <td>{{ s.address }}</td>
-        <td>{{ s.phone_number }}</td>
-        <td>{{ s.total_score }}</td>
-        <td>
-            {% for i in s.score15 %}
-            {{ s.score15[i-1]}}
-            {% endfor %}
-        </td>
-
-
-    </tr>
-    {% endfor %}
-</table>
+<div class="container center">
+    <table class="student" border="1">
+        <tr>
+            <th>ID Học sinh</th>
+            <th>Họ và tên</th>
+            <th>Lớp</th>
+            <th>Giới tính</th>
+            <th>Năm sinh</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Điểm trung bình</th>
+            <th>Điểm 15 phút</th>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.class }}</td>
+            <td>{{ s.sex }}</td>
+            <td>{{ s.dob }}</td>
+            <td>{{ s.address }}</td>
+            <td>{{ s.phone_number }}</td>
+            <td>{{ s.total_score }}</td>
+            <td>
+                {% for i in s.score15 %}
+                {{ s.score15[i-1]}}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 </body>
 </html>
