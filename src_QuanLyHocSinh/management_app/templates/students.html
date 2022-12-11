@@ -21,7 +21,7 @@
     <form>
         <input type="text" name="keyword" placeholder="Nhập từ khóa...">
         <input type="number" name="from_total_score" placeholder="Nhập điểm trung bình...">
-        <input type="submit" value="Tìm" >
+        <input type="submit" value="Tìm">
 
 
     </form>
@@ -34,8 +34,10 @@
             <th>Năm sinh</th>
             <th>Địa chỉ</th>
             <th>Số điện thoại</th>
-            <th>Điểm trung bình</th>
             <th>Điểm 15 phút</th>
+            <th>Điểm 45 phút</th>
+            <th>Điểm trung bình</th>
+
         </tr>
         {% for s in students %}
         <tr>
@@ -46,12 +48,18 @@
             <td>{{ s.dob }}</td>
             <td>{{ s.address }}</td>
             <td>{{ s.phone_number }}</td>
-            <td>{{ s.total_score }}</td>
             <td>
                 {% for i in s.score15 %}
                 {{ s.score15[i-1]}}
                 {% endfor %}
             </td>
+             <td>
+                {% for i in s.score45 %}
+                {{ s.score45[i-1]}}
+                {% endfor %}
+            </td>
+            <td>{{ s.total_score }}</td>
+
         </tr>
         {% endfor %}
     </table>

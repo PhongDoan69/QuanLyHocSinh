@@ -1,5 +1,5 @@
 from management_app import app
-from flask import render_template, request, models
+from flask import render_template, request
 import utils
 import json
 
