@@ -15,16 +15,19 @@ def load_grades():
 
 
 def load_students(g_id=None, kw=None, from_total_score=None):
-    students = Student.query.all()
+    students = Student.query.filter()
 
     if g_id:
-        students = students.filter(Student.)
-    # students = read_json(os.path.join(app.root_path, 'data/students.json'))
-    # if g_id:
-    #     students = [g for g in students if g['grade_id'] == int(g_id)]
-    # if kw:
-    #     students = [g for g in students if g['name'].lower().find(kw.lower()) >= 0]
-    # if from_total_score:
-    #     students = [g for g in students if g['total_score'] >= float(from_total_score)]
-    #
-    # return students
+        students = students.filter(Student.grade_id.__eq__(g_id))
+
+    if kw:
+        students = students.filter(Student.name.contains(kw))
+
+    if from_total_score:
+        students = students.filter(Student.total_score.__ge__(from_total_score))
+
+    return students
+
+
+def get_student_by_id(student_id):
+    return Student.query.get(student_id)

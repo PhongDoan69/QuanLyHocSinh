@@ -3,11 +3,48 @@
 {% block content %}
 
 <h1 class="subject">QUẢN LÝ HỌC SINH</h1>
-<ul>
-    <li><a href="{{ url_for('student_list') }}"> Tất cả học sinh </a></li>
-    {% for g in grades %}
-    <li><a href="/students?grade_id={{ g.id }}"> {{g.grade}} </a></li>
-    {% endfor %}
 
-</ul>
+<div class="container">
+    <div class="container">
+        <table class="table table-dark table-striped student" border="1">
+            <tr>
+                <th>ID Học sinh</th>
+                <th>Họ và tên</th>
+                <th>Lớp</th>
+                <th>Giới tính</th>
+                <th>Năm sinh</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <!--            <th>Điểm 15 phút</th>-->
+                <!--            <th>Điểm 45 phút</th>-->
+                <th>Điểm trung bình</th>
+
+            </tr>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.id }}</td>
+                <td>{{ s.name }}</td>
+                <td>{{ s.class_name }}</td>
+                <td>{{ s.sex }}</td>
+                <td>{{ s.dob }}</td>
+                <td>{{ s.address }}</td>
+                <td>{{ s.phone_number }}</td>
+                <!--            <td>-->
+                <!--                {% for i in s.score15 %}-->
+                <!--                {{ s.score15[i-1]}}-->
+                <!--                {% endfor %}-->
+                <!--            </td>-->
+                <!--             <td>-->
+                <!--                {% for i in s.score45 %}-->
+                <!--                {{ s.score45[i-1]}}-->
+                <!--                {% endfor %}-->
+                <!--            </td>-->
+                <td>{{ s.total_score }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
 {% endblock %}

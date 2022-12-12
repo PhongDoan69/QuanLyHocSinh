@@ -2,12 +2,18 @@ from management_app import app
 from flask import render_template, request
 import utils
 import json
+from management_app.admin import *
 
 
 @app.route("/")
 def home():
-    grades = utils.load_grades()
-    return render_template('index.html', grades=grades)
+    gras = utils.load_grades()
+
+    g_id = request.args.get('grade_id')
+    kw = request.args.get('keyword')
+    students = utils.load_students(g_id=g_id, kw=kw)
+
+    return render_template('index.html', grades=gras, students=students)
 
 
 @app.route("/students")
