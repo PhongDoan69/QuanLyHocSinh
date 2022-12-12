@@ -1,7 +1,8 @@
-import json, os
-from management_app import app
-from management_app.models import Grade, Student
-
+from management_app.models import Grade, Student, User
+from flask_login import current_user
+from sqlalchemy import func
+import hashlib
+import json
 
 
 def read_json(path):

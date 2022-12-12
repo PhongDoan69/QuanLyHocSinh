@@ -1,6 +1,8 @@
 from management_app import app
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, Enum, Float, Date, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, backref
+from enum import Enum as UserEnum
+from flask_login import UserMixin
 from management_app import db, app
 from datetime import datetime
 
@@ -8,6 +10,25 @@ from datetime import datetime
 class BaseModel(db.Model):
     __abstract__ = True
     id = Column(Integer, primary_key=True, autoincrement=True)
+
+
+class UserRole(UserEnum):
+    USER = 1
+    EMPLOYEE = 2
+    ADMIN = 3
+    pass
+
+
+class User(db.Model, UserMixin):
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(50), nullable=False)
+    username = Column(String(50), nullable=False)
+    password = Column(String(50), nullable=False)
+    active = Column(Boolean, default=True)
+    user_role = Column(Enum(UserRole), default=UserRole.USER)
+
+    def __str__(self):
+        return self.name
 
 
 class Grade(BaseModel):
@@ -77,21 +98,21 @@ class Student(BaseModel):
 
 if __name__ == '__main__':
     with app.app_context():
-        # db.create_all()
+        db.create_all()
         # g1 = Grade(name='Lớp 10')
         # g2 = Grade(name='Lớp 11')
         # g3 = Grade(name='Lớp 12')
-        # db.session.add_all([g1, g2, g3])
+        # # db.session.add_all([g1, g2, g3])
+        # # db.session.commit()
+        #
+        # s1 = Student(name='Nguyen Van A', dob=2008, class_name='10C1', sex='male',
+        #                   phone_number='0123456789', address='TP. HCM', total_score=0,
+        #                   grade_id=1)
+        # s2 = Student(name='Nguyen Thi Ngoc B', dob=2008, class_name='11C1', sex='female',
+        #              phone_number='0123456789', address='TP. HCM', total_score=0,
+        #              grade_id=2)
+        # s3 = Student(name='Dang Van C', dob=2008, class_name='12C1', sex='male',
+        #              phone_number='0123456789', address='TP. HCM', total_score=0,
+        #              grade_id=3)
+        # db.session.add_all([s1, s2, s3])
         # db.session.commit()
-
-        s1 = Student(name='Nguyen Van A', dob=2008, class_name='10C1', sex='male',
-                          phone_number='0123456789', address='TP. HCM', total_score=0,
-                          grade_id=1)
-        s2 = Student(name='Nguyen Thi Ngoc B', dob=2008, class_name='11C1', sex='female',
-                     phone_number='0123456789', address='TP. HCM', total_score=0,
-                     grade_id=2)
-        s3 = Student(name='Dang Van C', dob=2008, class_name='12C1', sex='male',
-                     phone_number='0123456789', address='TP. HCM', total_score=0,
-                     grade_id=3)
-        db.session.add_all([s1, s2, s3])
-        db.session.commit()

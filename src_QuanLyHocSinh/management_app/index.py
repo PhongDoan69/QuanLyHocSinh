@@ -16,6 +16,9 @@ def home():
     return render_template('index.html', grades=gras, students=students)
 
 
+
+
+
 @app.route("/students")
 def student_list():
     g_id = request.args.get("grade_id")
