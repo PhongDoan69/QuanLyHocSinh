@@ -1,6 +1,7 @@
-from flask_admin import BaseView
+from flask import redirect
+from flask_admin import BaseView, AdminIndexView, expose
 
-from management_app import admin, db
+from management_app import admin, db, utils
 from management_app.models import Grade, Student, UserRole
 from flask_admin.contrib.sqla import ModelView
 from flask_login import logout_user, current_user
@@ -37,3 +38,15 @@ class StudentModeView(AuthenticatedView):
     }
     page_size = 5
 
+class LogoutView(AuthenticatedView):
+    @expose('/')
+    def index(self):
+        logout_user()
+        return redirect('/admin')
+
+
+class MyAdminView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        stats = utils.count_product_by_cate()
+        return self.render('admin/index.html', stats=stats)

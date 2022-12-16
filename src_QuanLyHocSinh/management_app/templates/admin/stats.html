@@ -28,19 +28,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ url_for('static', filename='js/my-stats.js') }}"></script>
-<script>
-    let labels = []
-    let data = []
-    {% for s in stats %}
-        labels.push('{{s[1]}}')
-        data.push({{ s[2] }})
-    {% endfor %}
-    window.onload = function() {
-        cateChart(labels, data);
-    }
-</script>
+
 {% else %}
 <h1 class="text-center text-success">ĐĂNG NHẬP QUẢN TRỊ</h1>
 <form method="post" action="/login-admin">

@@ -1,8 +1,13 @@
+from urllib import request
+
+from flask import redirect, render_template
+
 from management_app.models import Grade, Student, User
-from flask_login import current_user
+from flask_login import current_user, login_user, logout_user
 from sqlalchemy import func
 import hashlib
 import json
+import utils
 
 
 def read_json(path):
@@ -32,3 +37,32 @@ def load_students(g_id=None, kw=None, from_total_score=None):
 
 def get_student_by_id(student_id):
     return Student.query.get(student_id)
+
+def login_my_user():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user = utils.auth_user(username=username, password=password)
+        if user:
+            login_user(user)
+
+            u = request.args.get('next')
+            return redirect(u if u else '/')
+
+    return render_template('login.html')
+
+def login_admin():
+    username = request.form['username']
+    password = request.form['password']
+
+    user = utils.auth_user(username=username, password=password)
+    if user:
+        login_user(user=user)
+
+    return redirect('/admin')
+
+
+def logout_my_user():
+    logout_user()
+    return redirect('/login')
